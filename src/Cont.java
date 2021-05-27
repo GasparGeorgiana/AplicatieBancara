@@ -1,12 +1,28 @@
+package Clase;
+
 public class Cont {
+    private int cont_id;
     private double balanta = 0;
     private double dobanda = 0.02;
     private int numarCont;
     private static int numarDeConturi = 1000000;
 
-    Cont() {
-        numarCont = numarDeConturi++;
+
+    public Cont(int cont_id, double balanta, double dobanda, int numarCont) {
+        this.cont_id = cont_id;
+        this.balanta = balanta;
+        this.dobanda = dobanda;
+        this.numarCont = numarCont;
     }
+
+    public int getCont_id() {
+        return cont_id;
+    }
+
+    public void setCont_id(int cont_id) {
+        this.cont_id = cont_id;
+    }
+
     public double getBalanta() {
         return balanta;
     }
@@ -16,15 +32,37 @@ public class Cont {
     }
 
     public double getDobanda() {
-        return dobanda * 100;
+        return dobanda;
     }
 
-    public void setDobanda(double interes) {
+    public void setDobanda(double dobanda) {
         this.dobanda = dobanda;
     }
 
     public int getNumarCont() {
         return numarCont;
+    }
+
+    public void setNumarCont(int numarCont) {
+        this.numarCont = numarCont;
+    }
+
+    public static int getNumarDeConturi() {
+        return numarDeConturi;
+    }
+
+    public static void setNumarDeConturi(int numarDeConturi) {
+        Cont.numarDeConturi = numarDeConturi;
+    }
+
+    @Override
+    public String toString() {
+        return "Cont{" +
+                "cont_id=" + cont_id +
+                ", balanta=" + balanta +
+                ", dobanda=" + dobanda +
+                ", numarCont=" + numarCont +
+                '}';
     }
 
     public void retragere(double suma) {
@@ -57,4 +95,5 @@ public class Cont {
             dobanda = 0.02;
         }
     }
+
 }
