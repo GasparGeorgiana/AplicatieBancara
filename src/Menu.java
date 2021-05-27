@@ -1,3 +1,9 @@
+import Clase.*;
+import repository.CheckingRepository;
+import repository.ClientRepository;
+import repository.ContRepository;
+import repository.SavingsRepository;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,6 +15,19 @@ public class Menu {
     public static void main(String[] args) {
         Menu menu = new Menu();
         menu.runMenu();
+        /*
+        Cont cont1 = new Cont(2, 12.3, 10, 12345);
+        ContRepository.insertCont(new Cont(1, 100.2, 20, 123));
+        ContRepository.updateContBalantaById(12.5, 1);
+        ContRepository.deleteContById(1);
+        ClientRepository.insertClient(new Client(1, "Ionel", "0127327843", "Costea", cont1));
+        ClientRepository.updateClientNumeById("Costel", 1);
+        ClientRepository.deleteClientById(1);
+        CheckingRepository.insertChecking(new Checking(1, 24.5, 12, 134, 1));
+        CheckingRepository.deleteCheckingById(1);
+        SavingsRepository.insertSavings(new Savings(2, 34.6, 20, 534, 1));
+        SavingsRepository.deleteSavingsById(1);
+         */
     }
 
     public void runMenu() {
@@ -92,17 +111,16 @@ public class Menu {
         }
         System.out.print("Va rugam sa va introduceti numele: ");
         nume = keyboard.nextLine();
-        System.out.print("Va rugam sa va introduceti prenumele: ");
-        prenume = keyboard.nextLine();
         System.out.print("Va rugam sa va introduceti numarul de CNP: ");
         CNP = keyboard.nextLine();
+        System.out.print("Va rugam sa va introduceti prenumele: ");
+        prenume = keyboard.nextLine();
         valid = false;
         while (!valid) {
             System.out.print("Va rugam sa introduceti o depunere initiala: ");
             try {
                 depunereInitiala = Double.parseDouble(keyboard.nextLine());
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Depunerea trebuie sa fie un numar!");
             }
 
@@ -124,17 +142,17 @@ public class Menu {
         Cont cont;
         tipulContului = keyboard.nextLine();
         if (tipulContului.equalsIgnoreCase("checking")) {
-            cont = new Checking(depunereInitiala);
+            cont = new Checking(1,depunereInitiala, 12, 123, 5);
         } else {
-            cont = new Savings(depunereInitiala);
+            cont = new Savings(2,depunereInitiala, 15, 158, 5);
         }
-        Client client = new Client(nume, prenume, CNP, cont);
+        Client client = new Client(10, nume, prenume, CNP, cont);
         banca.addClient(client);
     }
 
     private void realizeazaDepunere() {
         int cont = selecteazaCont();
-        if(cont >= 0) {
+        if (cont >= 0) {
             System.out.print("Ce suma ati dori sa depuneti?: ");
             double suma = 0;
             try {
@@ -146,30 +164,29 @@ public class Menu {
         }
     }
 
-        private void balantaContului() {
-            int cont = selecteazaCont();
-            if(cont >= 0) {
-                System.out.println(banca.getClient(cont).getCont());
-            }
+    private void balantaContului() {
+        int cont = selecteazaCont();
+        if (cont >= 0) {
+            System.out.println(banca.getClient(cont).getCont());
         }
+    }
 
-        private void realizeazaRetragere() {
-            int cont = selecteazaCont();
-            if(cont >= 0) {
-                System.out.print("Ce suma ati dori sa extrageti?: ");
-                double suma = 0;
-                try {
-                    suma = Double.parseDouble(keyboard.nextLine());
-                } catch (NumberFormatException e) {
-                    suma = 0;
-                }
-                banca.getClient(cont).getCont().retragere(suma);
+    private void realizeazaRetragere() {
+        int cont = selecteazaCont();
+        if (cont >= 0) {
+            System.out.print("Ce suma ati dori sa extrageti?: ");
+            double suma = 0;
+            try {
+                suma = Double.parseDouble(keyboard.nextLine());
+            } catch (NumberFormatException e) {
+                suma = 0;
             }
+            banca.getClient(cont).getCont().retragere(suma);
         }
-
-
+    }
 
     private int selecteazaCont() {
+
         ArrayList<Client> clienti = banca.getClienti();
         if(clienti.size() <= 0) {
             System.out.println("Niciun client la banca ta");
@@ -188,7 +205,7 @@ public class Menu {
             cont = -1;
         }
         if(cont < 0 || cont > clienti.size()) {
-            System.out.println("Cont invalid selectat!");
+            System.out.println("Clase.Cont invalid selectat!");
             cont = -1;
         }
         return cont;
